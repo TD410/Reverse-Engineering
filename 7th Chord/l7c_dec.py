@@ -73,7 +73,7 @@ def l7c_dec(data):
     if not bit1 and not bit2:
       
       if DEBUG:
-        print "[0x%04X, 0x%06X]" % (p - 1, len(res)), "Raw bytes:", "%02X" % b,
+        print("[0x%04X, 0x%06X]" % (p - 1, len(res)), "Raw bytes:", "%02X" % b, end=' ')
       
       # If we're zero, we want MORE.
       if b == 0x00:
@@ -81,7 +81,7 @@ def l7c_dec(data):
         p += 1
         
         if DEBUG:
-          print "%02X" % b2,
+          print("%02X" % b2, end=' ')
         
         # If bit1 isn't set, we want EVEN MORE.
         if not b2 & 0b10000000:
@@ -93,7 +93,7 @@ def l7c_dec(data):
             break
           
           if DEBUG:
-            print "%02X" % b3,
+            print("%02X" % b3, end=' ')
           
           # What the fuck even is this compression scheme.
           count = (b2 << 8) + b3 + 191
@@ -113,10 +113,10 @@ def l7c_dec(data):
         break
       
       if DEBUG:
-        print
-        for x in data[p : p + count]: print "%02X" % (x),
-        print
-        print
+        print()
+        for x in data[p : p + count]: print("%02X" % (x), end=' ')
+        print()
+        print()
       
       res += data[p : p + count]
       p += count
@@ -130,17 +130,17 @@ def l7c_dec(data):
       offset = (b & 0b00001111) + 1
       
       if DEBUG:
-        print "[0x%04X, 0x%06X]" % (p - 1, len(res)), "Copy back:", "%02X" % b, "|", count, offset
+        print("[0x%04X, 0x%06X]" % (p - 1, len(res)), "Copy back:", "%02X" % b, "|", count, offset)
       
       for i in range(count):
         res.append(res[-offset])
         
         if DEBUG:
-          print "%02X" % (res[-1]),
+          print("%02X" % (res[-1]), end=' ')
           
       if DEBUG:
-        print
-        print
+        print()
+        print()
     
     # Copy more data from the output.
     # 10xxxxyy yyyyyyyy
@@ -154,17 +154,17 @@ def l7c_dec(data):
       offset = ((b & 0b00000011) << 8) + b2 + 1
       
       if DEBUG:
-        print "[0x%04X, 0x%06X]" % (p - 1, len(res)), "Copy more back:", "%02X" % b, "%02X" % b2, "|", count, offset
+        print("[0x%04X, 0x%06X]" % (p - 1, len(res)), "Copy more back:", "%02X" % b, "%02X" % b2, "|", count, offset)
       
       for i in range(count):
         res.append(res[-offset])
         
         if DEBUG:
-          print "%02X" % (res[-1]),
+          print("%02X" % (res[-1]), end=' ')
           
       if DEBUG:
-        print
-        print
+        print()
+        print()
     
     # Copy EVEN MORE data from the output.
     # 11xxxxxx xyyyyyyy yyyyyyy
@@ -179,17 +179,17 @@ def l7c_dec(data):
       offset = ((b2 & 0b01111111) << 8) + b3 + 1
       
       if DEBUG:
-        print "[0x%04X, 0x%06X]" % (p - 1, len(res)), "Copy lots back:", "%02X" % b, "%02X" % b2, "%02X" % b3, "|", count, offset
+        print("[0x%04X, 0x%06X]" % (p - 1, len(res)), "Copy lots back:", "%02X" % b, "%02X" % b2, "%02X" % b3, "|", count, offset)
       
       for i in range(count):
         res.append(res[-offset])
         
         if DEBUG:
-          print "%02X" % (res[-1]),
+          print("%02X" % (res[-1]), end=' ')
           
       if DEBUG:
-        print
-        print
+        print()
+        print()
   
   return res
 

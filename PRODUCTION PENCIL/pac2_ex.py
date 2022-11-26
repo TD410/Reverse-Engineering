@@ -26,11 +26,11 @@ def pac2_ex(filename, out_dir = None):
     filenames = []
     toc = []
     
-    for i in xrange(num_files):
+    for i in range(num_files):
       fn = data.read(32).strip("\0")
       filenames.append(fn)
     
-    for i in xrange(num_files):
+    for i in range(num_files):
       offset = data.get_u32()
       length = data.get_u32()
       
@@ -43,13 +43,13 @@ def pac2_ex(filename, out_dir = None):
     except:
       pass
     
-    for i in xrange(num_files):
+    for i in range(num_files):
       offset, length = toc[i]
       data.seek(start + offset)
       file_data = data.read(length)
       
       out_file = os.path.join(out_dir, filenames[i])
-      print out_file
+      print(out_file)
       
       with open(out_file, "wb") as f:
         f.write(file_data)

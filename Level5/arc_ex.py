@@ -21,7 +21,7 @@ def arc_ex(filename, out_dir = None):
   f = BinaryFile(filename, "rb")
   
   if not f.read(4) == ARC_MAGIC:
-    print "Invalid ARC file."
+    print("Invalid ARC file.")
     f.close()
     return
   
@@ -106,7 +106,7 @@ def arc_ex(filename, out_dir = None):
       f.seek(file_data_off + data_off)
       data = f.read(filesize)
       
-      print " ->", fn
+      print(" ->", fn)
       # print "{:<60}".format(fn),
       # print "0x%08X  " % fn_off,
       # print "0x%08X  " % file_data_off,
@@ -130,8 +130,8 @@ if __name__ == "__main__":
     if not ext == ".fa":
       continue
     
-    print fn
+    print(fn)
     arc_ex(fn)
-    print
+    print()
 
 ### EOF ###

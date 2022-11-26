@@ -21,7 +21,7 @@ def xfsa_ex(filename, out_dir = None):
   f = BinaryFile(filename, "rb")
   
   if not f.read(4) == XFSA_MAGIC:
-    print "Invalid XFSA file."
+    print("Invalid XFSA file.")
     f.close()
     return
   
@@ -116,7 +116,7 @@ def xfsa_ex(filename, out_dir = None):
       f.seek(file_data_off + data_off)
       data = f.read(file_size)
       
-      print " ->", fn
+      print(" ->", fn)
       # print "{:<60}".format(fn),
       # print "0x%08X  " % fn_off,
       # print "0x%08X  " % file_data_off,
@@ -135,8 +135,8 @@ if __name__ == "__main__":
     if not ext == ".fa":
       continue
     
-    print fn
+    print(fn)
     xfsa_ex(fn)
-    print
+    print()
 
 ### EOF ###

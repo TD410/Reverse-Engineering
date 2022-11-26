@@ -20,7 +20,7 @@ def glz_dec(data):
   
   glz_magic = data[:0x04]
   if not glz_magic == GLZ_MAGIC:
-    print "Invalid GLZ data."
+    print("Invalid GLZ data.")
     return data
   
   unk      = to_u32(data[0x04:0x08]) # 0x01105030
@@ -77,7 +77,7 @@ def glh_unpack(data, dec = True):
   glh_magic = data[:0x04]
   
   if not glh_magic == GLH_MAGIC:
-    print "Invalid GLH data."
+    print("Invalid GLH data.")
     return
   
   unk1     = to_u32(data[0x04:0x08]) # 0x01105030
@@ -104,7 +104,7 @@ def p5_cutin_unpack(filename, dec = True):
   
   for i in range(item_count):
     if f.tell() >= filesize - 8:
-      print "Not enough data to extract."
+      print("Not enough data to extract.")
       break
     
     item_id   = f.get_u32be()
@@ -162,12 +162,12 @@ def p5_eboot_ex(filename, out_dir = None):
 
 if __name__ == "__main__":
   
-  dirname = u"cutin"
+  dirname = "cutin"
   for fn in list_all_files(dirname):
-    if not os.path.splitext(fn)[1] in [u".000", u".001"]:
+    if not os.path.splitext(fn)[1] in [".000", ".001"]:
       continue
     
-    print fn
+    print(fn)
     p5_cutin_unpack(fn)
     # print
   # p5_eboot_ex("EBOOT.BIN")

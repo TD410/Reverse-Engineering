@@ -74,7 +74,7 @@ def epa_conv_data(f):
       img = Image.merge("RGBA", (r, g, b, a))
     
     else:
-      print "Unknown image format."
+      print("Unknown image format.")
   
   return img
 
@@ -137,7 +137,7 @@ def epa_dec(data, width):
 if __name__ == "__main__":
   
   for fn in list_all_files("graphic-lilycle"):
-    print fn
+    print(fn)
     epa_conv(fn)
 
 ### EOF ###

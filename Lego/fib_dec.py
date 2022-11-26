@@ -25,12 +25,12 @@ def fib_dec(data):
     p += 1
     
     if DEBUG:
-      print "[0x%08X][0x%08X]" % (p - 1, len(res)),
+      print("[0x%08X][0x%08X]" % (p - 1, len(res)), end=' ')
     
     # End of data marker.
     if b >= 0xFC:
       if DEBUG:
-        print "End marker: 0x%02X" % b
+        print("End marker: 0x%02X" % b)
       count = b - 0xFC
       res += data[p : p + count]
       p += count
@@ -44,7 +44,7 @@ def fib_dec(data):
       count = ((b & 0b11111) + 1) * 4
       
       if DEBUG:
-        print "Raw: 0x%02X" % b, "->", count
+        print("Raw: 0x%02X" % b, "->", count)
       
       res += data[p : p + count]
       p += count
@@ -53,7 +53,7 @@ def fib_dec(data):
     else:
       
       if DEBUG:
-        print "Read back: 0x%02X" % b,
+        print("Read back: 0x%02X" % b, end=' ')
       
       # 110xxyyz zzzzzzzz zzzzzzzz yyyyyyyy
       # Raw count  -> x
@@ -68,7 +68,7 @@ def fib_dec(data):
         offset = ((b & 0b00000001) << 16) + (b2 << 8) + b3 + 1
         
         if DEBUG:
-          print "0x%02X 0x%02X 0x%02X" % (b2, b3, b4),
+          print("0x%02X 0x%02X 0x%02X" % (b2, b3, b4), end=' ')
       
       # 10yyyyyy xxzzzzzz zzzzzzzz
       # Raw count  -> x
@@ -83,7 +83,7 @@ def fib_dec(data):
         offset = ((b2 & 0b00111111) << 8) + b3 + 1
         
         if DEBUG:
-          print "0x%02X 0x%02X" % (b2, b3),
+          print("0x%02X 0x%02X" % (b2, b3), end=' ')
       
       # 0yyyxxzz zzzzzzzz
       # Raw count  -> x
@@ -98,10 +98,10 @@ def fib_dec(data):
         offset = ((b & 0b00000011) << 8) + b2 + 1
         
         if DEBUG:
-          print "0x%02X" % (b2),
+          print("0x%02X" % (b2), end=' ')
       
       if DEBUG:
-        print "->", raw, count, offset
+        print("->", raw, count, offset)
       
       res += data[p : p + raw]
       p += raw
@@ -122,9 +122,9 @@ if __name__ == "__main__":
   ]
   
   for fn in files:
-    print
-    print "#" * 20, fn, "#" * 20
-    print
+    print()
+    print("#" * 20, fn, "#" * 20)
+    print()
     with open(fn, "rb") as f:
       data = f.read()
     data = fib_dec(data)

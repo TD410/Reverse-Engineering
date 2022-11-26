@@ -10,7 +10,7 @@
 
 import os
 import re
-import cPickle as pickle
+import pickle as pickle
 
 from collections import defaultdict
 
@@ -51,7 +51,7 @@ def dump_messages(msgs, out_file):
       string = string.decode("CP932", errors = "replace")
       
       if not INCLUDE_COMMANDS:
-        string = re.sub(ur"\{.*?\}", u"", string)
+        string = re.sub(r"\{.*?\}", "", string)
       
       f.write(string.encode("UTF-8"))
       f.write("\n")
@@ -159,14 +159,14 @@ def pak_dump(f, out_dir):
     elif ext == ".ftd":
       msgs = ftd_dump(data)
     elif ext in [".pak", ".pac", ".bin"]:
-      print out_file
+      print(out_file)
       subdir = os.path.splitext(out_file)[0]
       pak_dump(data, subdir)
       continue
     else:
       continue
     
-    print " ->", out_file
+    print(" ->", out_file)
     dump_messages(msgs, out_file + ".txt")
 
 ################################################################################
@@ -174,7 +174,7 @@ def pak_dump(f, out_dir):
 def ftd_dump(f):
   unk = f.read(4)
   if not f.read(4) == FTD_MAGIC:
-    print "Invalid FTD data."
+    print("Invalid FTD data.")
     return []
   
   data_size = f.get_u32be()
@@ -224,7 +224,7 @@ def bf_dump(f):
   data_size = f.get_u32be()
   
   if not f.read(4) == BF_MAGIC:
-    print "Invalid BF data."
+    print("Invalid BF data.")
     return []
   
   unk2 = f.get_u32be()
@@ -262,14 +262,14 @@ def bf_dump(f):
 def bmd_dump(f):
   
   if not f.read(2) == BMD_MAGIC1:
-    print "Invalid BMD data."
+    print("Invalid BMD data.")
     return []
   
   unk = f.get_u16be()
   data_size = f.get_u32be()
   
   if not f.read(4) == BMD_MAGIC2:
-    print "Invalid BMD magic."
+    print("Invalid BMD magic.")
     return []
   
   unk2 = f.get_u32be()
@@ -301,7 +301,7 @@ def bmd_dump(f):
       msg_unk2 = f.get_u32be()
     
     else:
-      print "Unknown message type!", msg_type
+      print("Unknown message type!", msg_type)
       continue
     
     if count == 0:
@@ -368,7 +368,7 @@ def parse_str(bytes, has_cmd = True):
     
     # If it's a control character (excluding line breaks and shit)
     # it's probably data instead of text, so get out.
-    elif b in range(0x09) + range(0x0E, 0x20):
+    elif b in list(range(0x09)) + list(range(0x0E, 0x20)):
       break
     
     else:
@@ -411,7 +411,7 @@ def merge_scripts():
     en_fn = jp_fn.replace("p5jp", "p5us")
     base  = jp_fn[9:]
     
-    print base
+    print(base)
     
     jp = jp_data.get(jp_fn, [])
     en = en_data.get(en_fn, [])
@@ -467,7 +467,7 @@ if __name__ == "__main__":
     if not ext in [".bf", ".bmd", ".pak", ".pac", ".bin"]:
       continue
     
-    print fn
+    print(fn)
     
     if ext == ".bf":
       bf_dump_file(fn, out_file + ext + ".txt")

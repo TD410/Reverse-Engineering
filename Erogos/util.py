@@ -10,7 +10,7 @@
 
 import os
 import zlib
-import StringIO
+import io
 import struct
 
 class BinaryHelper(object):
@@ -68,7 +68,7 @@ class BinaryHelper(object):
 class BinaryFile(file, BinaryHelper):
   pass
 
-class BinaryString(StringIO.StringIO, BinaryHelper):
+class BinaryString(io.StringIO, BinaryHelper):
   pass
 
 def to_u32(b):
@@ -140,7 +140,7 @@ def zlib_inflate(data):
   return inflated
 
 def reverse_enum(L):
-  for index in reversed(xrange(len(L))):
+  for index in reversed(range(len(L))):
     yield index, L[index]
 
 ### EOF ###

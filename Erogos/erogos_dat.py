@@ -25,7 +25,7 @@ def erogos_dat_ex(filename, out_dir = None, xor_key = None):
     out_dir = os.path.splitext(filename)[0]
   
   if not f.read(4) == PACK_MAGIC:
-    print "Not a valid pack file."
+    print("Not a valid pack file.")
     return
   
   count = f.get_u16()
@@ -44,7 +44,7 @@ def erogos_dat_ex(filename, out_dir = None, xor_key = None):
     pass
   
   for filename, offset, length in files:
-    print filename
+    print(filename)
     filename = os.path.join(out_dir, filename)
     
     f.seek(offset)

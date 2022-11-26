@@ -38,15 +38,15 @@ def nis_dec(data):
     bit3 = b & 0b00100000
     
     if DEBUG:
-      print "[0x%04X, 0x%06X]" % (p - 1, len(res)),
+      print("[0x%04X, 0x%06X]" % (p - 1, len(res)), end=' ')
     
     # Raw data.
     if not bit1:
       if DEBUG:
-        print "Raw bytes:", "%02X" % b
-        for x in data[p : p + b]: print "%02X" % (x),
-        print
-        print
+        print("Raw bytes:", "%02X" % b)
+        for x in data[p : p + b]: print("%02X" % (x), end=' ')
+        print()
+        print()
         
       count = b
       res += data[p : p + count]
@@ -55,7 +55,7 @@ def nis_dec(data):
     else:
       
       if DEBUG:
-        print "Copy back:", "%02X" % b,
+        print("Copy back:", "%02X" % b, end=' ')
       
       if b >= 0x80 and b < 0xC0:
         # count = ((b & 0b00110000) >> 4) + 1
@@ -67,7 +67,7 @@ def nis_dec(data):
         p += 1
         
         if DEBUG:
-          print "%02X" % b2,
+          print("%02X" % b2, end=' ')
         
         # count = (b & 0b00011111) + 2
         count = b - 0xC0 + 2
@@ -79,22 +79,22 @@ def nis_dec(data):
         p += 2
         
         if DEBUG:
-          print "%02X" % b2, "%02X" % b3,
+          print("%02X" % b2, "%02X" % b3, end=' ')
           
         count  = ((b - 0xE0) << 4) + (b2 >> 4) + 3
         offset = ((b2 & 0b00001111) << 8) + b3 + 1
       
       if DEBUG:
-        print "|", count, offset
+        print("|", count, offset)
       
       for i in range(count):
         res.append(res[-offset])
         if DEBUG:
-          print "%02X" % (res[-1]),
+          print("%02X" % (res[-1]), end=' ')
       
       if DEBUG:
-        print
-        print
+        print()
+        print()
   
   # print cmp_size, dec_size, len(res)
   return res
@@ -113,7 +113,7 @@ if __name__ == "__main__":
   for fn in os.listdir(base_dir):
     in_file  = os.path.join(base_dir, fn)
     out_file = os.path.join("data-dec/database", fn)
-    print in_file
+    print(in_file)
     dec_file(in_file, out_file, 8)
   
   # Stage
@@ -121,7 +121,7 @@ if __name__ == "__main__":
   for fn in os.listdir(base_dir):
     in_file  = os.path.join(base_dir, fn)
     out_file = os.path.join("data-dec/stage", fn)
-    print in_file
+    print(in_file)
     dec_file(in_file, out_file, 8)
 
 ### EOF ###

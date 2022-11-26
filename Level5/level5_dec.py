@@ -37,35 +37,35 @@ def level5_dec(data):
   # Raw data.
   if fmt == 0:
     if DEBUG:
-      print "Raw data:"
+      print("Raw data:")
     dec = data[4 : 4 + dec_size]
   
   # RLE.
   elif fmt & 0b100:
     if DEBUG:
-      print "RLE:"
+      print("RLE:")
     dec = rle_dec(data[4:])
   
   # Huffman.
   elif fmt & 0b010:
     if DEBUG:
-      print "Huffman:"
+      print("Huffman:")
     bits = 8 if fmt == 0b011 else 4
     dec = huffman_dec(data[4:], bits, dec_size)
   
   # LZSS.
   elif fmt & 0b001:
     if DEBUG:
-      print "LZSS:"
+      print("LZSS:")
     dec = lzss_dec(data[4:])
   
   else:
-    print "Unknown compression:", bin(fmt)
+    print("Unknown compression:", bin(fmt))
     dec = data
   
   if DEBUG:
-    print "Expected size:", dec_size
-    print "Actual size:  ", len(dec)
+    print("Expected size:", dec_size)
+    print("Actual size:  ", len(dec))
   
   return dec
   
@@ -120,13 +120,13 @@ def huffman_dec(data, bits, dec_size):
     next += ((table[off] & 0x3F) + 1) * 2
     
     if DEBUG:
-      print flag & 1, hex(table[off]), next,
+      print(flag & 1, hex(table[off]), next, end=' ')
     
     ch = table[off] & (0x40 if flag & 1 else 0x80)
     off = next - 1 + (flag & 1)
     
     if DEBUG:
-      print ch
+      print(ch)
     
     if ch:
       if bits_used == 0:
@@ -161,7 +161,7 @@ def lzss_dec(data):
       p += 1
     
     if DEBUG:
-      print "[0x%08X][0x%08X]" % (p - 1, len(res)),
+      print("[0x%08X][0x%08X]" % (p - 1, len(res)), end=' ')
     
     if p >= len(data):
       break
@@ -172,14 +172,14 @@ def lzss_dec(data):
     # Offset -> y
     if flag & 1:
       if DEBUG:
-        print "Read back: 0x%02X 0x%02X" % (data[p], data[p + 1]),
+        print("Read back: 0x%02X 0x%02X" % (data[p], data[p + 1]), end=' ')
       
       count  = (data[p] >> 4) + 3
       offset = ((data[p] & 0b1111) << 8) | data[p + 1]
       p += 2
       
       if DEBUG:
-        print "-> Count:", count, "| Offset:", offset
+        print("-> Count:", count, "| Offset:", offset)
       
       for i in range(count):
         res.append(res[-offset - 1])
@@ -187,7 +187,7 @@ def lzss_dec(data):
     # Raw byte.
     else:
       if DEBUG:
-        print "Raw: 0x%02X" % data[p]
+        print("Raw: 0x%02X" % data[p])
         
       res.append(data[p])
       p += 1

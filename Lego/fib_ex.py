@@ -24,9 +24,9 @@ def fib_ex(filename, out_dir = None, platform = None):
   out_dir = out_dir or os.path.splitext(filename)[0]
   csv_file = os.path.splitext(filename)[0] + ".csv"
   
-  print
-  print "*" * 10, filename, "*" * 10
-  print 
+  print()
+  print("*" * 10, filename, "*" * 10)
+  print() 
   
   file_names = {}
   if os.path.isfile(csv_file):
@@ -65,7 +65,7 @@ def fib_ex_data(f, out_dir, file_names = {}, platform = None):
   
   if not f.read(8) == FIB_MAGIC:
     f.close()
-    print "Invalid FIB file."
+    print("Invalid FIB file.")
     return
   
   file_count = f.get_u32()
@@ -123,15 +123,15 @@ def fib_ex_data(f, out_dir, file_names = {}, platform = None):
     platform = PLATFORM_PSP
   
   if DEBUG:
-    print file_count, len(file_list)
+    print(file_count, len(file_list))
     f.seek(0x14)
   
   for hash, fn, dec_size, offset in file_list:
     
     if DEBUG:
-      print fn
+      print(fn)
       if not offset == f.tell():
-        print "    ##########"
+        print("    ##########")
     
     f.seek(offset)
     dec = bytearray()
@@ -161,7 +161,7 @@ def fib_ex_data(f, out_dir, file_names = {}, platform = None):
       # Compressed
       if (fib_ver == 1 and cmp_flag == 0x40) or (fib_ver == 2 and cmp_flag & 1):
         if DEBUG:
-          print "    Chunk: 0x%02X 0x%08X 0x%08X 0x%08X" % (cmp_flag, f.tell() - 4, f.tell() + cmp_size, cmp_size),
+          print("    Chunk: 0x%02X 0x%08X 0x%08X 0x%08X" % (cmp_flag, f.tell() - 4, f.tell() + cmp_size, cmp_size), end=' ')
         
         chunk = fib_dec(f.read(cmp_size))
         dec += chunk
@@ -174,12 +174,12 @@ def fib_ex_data(f, out_dir, file_names = {}, platform = None):
           done = True
         
         if DEBUG:
-          print "0x%08X" % len(chunk)
+          print("0x%08X" % len(chunk))
       
       # Uncompressed.
       else:
         if DEBUG:
-          print "    Uncompressed: 0x%02X 0x%08X 0x%08X 0x%08X 0x%08X" % (cmp_flag, f.tell() - 4, f.tell() + dec_size, cmp_size, dec_size)
+          print("    Uncompressed: 0x%02X 0x%08X 0x%08X 0x%08X 0x%08X" % (cmp_flag, f.tell() - 4, f.tell() + dec_size, cmp_size, dec_size))
         
         # We need those first four bytes back.
         f.seek(-4, 1)
@@ -188,8 +188,8 @@ def fib_ex_data(f, out_dir, file_names = {}, platform = None):
     
     if DEBUG:
       if not dec_size == 0 and not dec_size == len(dec):
-        print "    Size mismatch!"
-      print "   ", dec_size, len(dec), len(dec) - dec_size
+        print("    Size mismatch!")
+      print("   ", dec_size, len(dec), len(dec) - dec_size)
     
     # Keep our existing extension if we have one,
     # except images/audio, which don't use useful extensions.
@@ -199,7 +199,7 @@ def fib_ex_data(f, out_dir, file_names = {}, platform = None):
         fn = os.path.splitext(fn)[0] + ext
     
     if not DEBUG:
-      print fn
+      print(fn)
     
     out_file = os.path.join(out_dir, fn)
     

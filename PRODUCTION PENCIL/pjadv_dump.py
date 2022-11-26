@@ -107,8 +107,6 @@ def get_str(data, offset):
   return string.decode("CP932")
   
 if __name__ == "__main__":
-  pjadv_dump("archive-trial/scenario.dat", "archive-trial/textdata.bin")
-  pjadv_dump("archive-lilycle/scenario.dat", "archive-lilycle/textdata.bin")
-  pjadv_dump("archive-taisho/scenarioeng.dat", "archive-taisho/textdataeng.bin")
+  pjadv_dump("archive-taisho/scenario.dat", "archive-taisho/textdata.bin")
 
 ### EOF ###

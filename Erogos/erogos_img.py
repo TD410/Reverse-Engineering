@@ -36,9 +36,9 @@ def save_image(out_file, width, height, pixels):
   
   # print width, height
   if not len(pixels) == width * height:
-    print "Incorrect number of pixels???"
-    print len(pixels), width * height
-    print
+    print("Incorrect number of pixels???")
+    print(len(pixels), width * height)
+    print()
     
     height = len(pixels) / width
     pixels = pixels[:width * height]
@@ -82,7 +82,7 @@ def erogos_img_parse(data, offset = 0, compose = True):
     return PREV_WIDTH, PREV_HEIGHT, PREV_PIXELS
   
   if img_flags >= 0b00100000:
-    print "Unknown type: 0x%02X" % img_flags
+    print("Unknown type: 0x%02X" % img_flags)
     return 0, 0, []
   
   if clear_prev:
@@ -274,7 +274,7 @@ def erogos_ani_ex(filename, out_dir, compose = True):
   for i, offset in enumerate(frame_offs):
     
     out_file = os.path.join(out_dir, "%04d.png" % i)
-    print out_file
+    print(out_file)
     
     width, height, pixels = erogos_img_parse(data, offset, compose)
     
@@ -326,7 +326,7 @@ if __name__ == "__main__":
         if not os.path.splitext(filename)[1].lower() == ".cg":
           continue
         
-        print filename
+        print(filename)
         in_file  = os.path.join(bg_dir, filename)
         out_file = os.path.join(bg_dir, base + ".png")
         erogos_img_conv(in_file, out_file)
@@ -337,7 +337,7 @@ if __name__ == "__main__":
         if not ext.lower() == ".ani":
           continue
         
-        print filename
+        print(filename)
         in_file = os.path.join(mov_dir, filename)
         out_dir = os.path.join(mov_dir, base)
         erogos_ani_ex(in_file, out_dir, compose = True)
@@ -348,7 +348,7 @@ if __name__ == "__main__":
         if not ext.lower() == ".ani":
           continue
         
-        print filename
+        print(filename)
         in_file = os.path.join(af_dir, filename)
         out_dir = os.path.join(af_dir, base)
         erogos_ani_ex(in_file, out_dir, compose = True)

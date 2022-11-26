@@ -35,7 +35,7 @@ def fad_ex(filename, out_dir):
   
   num_anims = num_anims1 + num_anims2
   
-  print num_anims1, num_anims2, num_imgs, unk2, unk3, unk4, header_len, unk5
+  print(num_anims1, num_anims2, num_imgs, unk2, unk3, unk4, header_len, unk5)
   
   anims = []
   imgs  = []
@@ -108,7 +108,7 @@ def fad_ex(filename, out_dir):
     out_file = ("img_%04d_%s" % (i, name)) if name else ("img_%04d" % i)
     out_file = os.path.join(out_dir, out_file)
     
-    print out_file
+    print(out_file)
     
     palette = []
     mode    = "RGBA"

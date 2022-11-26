@@ -18,9 +18,9 @@ HOG_MAGIC = "WART3.00"
 def hog_ex(filename, out_dir = None):
   out_dir = out_dir or os.path.splitext(filename)[0]
   
-  print
-  print "*" * 10, filename, "*" * 10
-  print 
+  print()
+  print("*" * 10, filename, "*" * 10)
+  print() 
   
   f = BinaryFile(filename, "rb")
   hog_ex_data(f, out_dir)
@@ -30,7 +30,7 @@ def hog_ex_data(f, out_dir):
   
   if not f.read(8) == HOG_MAGIC:
     f.close()
-    print "Invalid HOG file."
+    print("Invalid HOG file.")
     return
   
   file_count = f.get_u32be()
@@ -67,7 +67,7 @@ def hog_ex_data(f, out_dir):
   
   # Get our files.
   for offset, cmp_size, dec_size, fn in file_info:
-    print fn
+    print(fn)
     
     f.seek(offset)
     

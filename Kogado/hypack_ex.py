@@ -21,7 +21,7 @@ def hypack_ex(in_file, out_dir = None):
   f = BinaryFile(in_file, "rb")
   
   if not f.read(7) == HYPACK_MAGIC:
-    print "Invalid HyPack file."
+    print("Invalid HyPack file.")
     return
   
   try:
@@ -37,13 +37,13 @@ def hypack_ex(in_file, out_dir = None):
     entry_off = tbl_off + (i * 0x30)
     f.seek(entry_off)
     
-    filename = f.read(0x15).strip(u"\0")
+    filename = f.read(0x15).strip("\0")
     ext = f.read(3)
     
     filename = filename + "." + ext
     out_file = os.path.join(out_dir, filename)
     
-    print filename
+    print(filename)
     
     data_off = f.get_u32() + 0x10
     dec_size = f.get_u32()
@@ -61,10 +61,10 @@ def hypack_ex(in_file, out_dir = None):
       f2.write(data)
 
 if __name__ == "__main__":
-  hypack_ex(u"Shirokoi/EvBG.pak")
-  hypack_ex(u"Shirokoi/EvCG.pak")
-  hypack_ex(u"Shirokoi/EvSE.pak")
-  hypack_ex(u"Shirokoi/Script.pak")
-  hypack_ex(u"Shirokoi/Game.pak")
+  hypack_ex("Shirokoi/EvBG.pak")
+  hypack_ex("Shirokoi/EvCG.pak")
+  hypack_ex("Shirokoi/EvSE.pak")
+  hypack_ex("Shirokoi/Script.pak")
+  hypack_ex("Shirokoi/Game.pak")
 
 ### EOF ###

@@ -21,7 +21,7 @@ def xpck_ex(filename, out_dir = None):
   f = BinaryFile(filename, "rb")
   
   if not f.read(4) == XPCK_MAGIC:
-    print "Invalid XPCK file."
+    print("Invalid XPCK file.")
     f.close()
     return
   
@@ -69,7 +69,7 @@ def xpck_ex(filename, out_dir = None):
     fn = fn_table.get_str()
     fn = os.path.join(out_dir, fn)
     
-    print " ->", fn
+    print(" ->", fn)
     # print "{:<80}".format(fn), "0x%04X  " % (f.tell() - 12), "0x%08X  " % fn_crc, "0x%08X  " % fn_off, "0x%08X  " % offset, "0x%08X" % size
     
     # Get our data.
@@ -101,8 +101,8 @@ if __name__ == "__main__":
     if not ext.startswith(".x"):
       continue
     
-    print fn
+    print(fn)
     xpck_ex(fn)
-    print
+    print()
 
 ### EOF ###

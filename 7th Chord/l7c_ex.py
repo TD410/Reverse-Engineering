@@ -20,7 +20,7 @@ DEBUG = False
 
 def get_name(table, offset):
   length = table[offset]
-  return unicode(table[offset + 1 : offset + length + 1])
+  return str(table[offset + 1 : offset + length + 1])
 
 def l7c_ex(filename, out_dir = None):
   if not out_dir:
@@ -45,7 +45,7 @@ def l7c_ex(filename, out_dir = None):
   unk7        = f.get_u32()
   
   if DEBUG:
-    print unk1, filesize, toc_off, toc_len, unk2, toc_entr, dir_count, file_count, chunk_count, names_len, unk7
+    print(unk1, filesize, toc_off, toc_len, unk2, toc_entr, dir_count, file_count, chunk_count, names_len, unk7)
   
   f.seek(toc_off)
   
@@ -69,19 +69,19 @@ def l7c_ex(filename, out_dir = None):
       file_data.append([file_id, dir_off, fn_off])
     
     if DEBUG:
-      print "%10d | %10d | %10d | %10d | %10d | %10d" % (file_id, unk1, dir_off, fn_off, unk2, unk3)
+      print("%10d | %10d | %10d | %10d | %10d | %10d" % (file_id, unk1, dir_off, fn_off, unk2, unk3))
     # print file_id, unk1, unk2, unk3
   
   if not len(dir_data) == dir_count:
-    print "Warning: Expected", dir_count, "directories, found", len(dir_data)
+    print("Warning: Expected", dir_count, "directories, found", len(dir_data))
   
   if not len(file_data) == file_count:
-    print "Warning: Expected", file_count, "files, found", len(file_data)
+    print("Warning: Expected", file_count, "files, found", len(file_data))
   
   if DEBUG:
-    print
-    print "*" * 80
-    print
+    print()
+    print("*" * 80)
+    print()
   
   # This might not work if file IDs aren't sequential?
   for i in range(file_count):
@@ -95,7 +95,7 @@ def l7c_ex(filename, out_dir = None):
     file_data[i].extend([cmp_size, dec_size, offset, first_chunk, num_chunks, unk3])
     
     if DEBUG:
-      print "%10d | %10d | %10d | %10d | %10d | %10d" % (cmp_size, dec_size, unk1, unk2, offset, unk3)
+      print("%10d | %10d | %10d | %10d | %10d | %10d" % (cmp_size, dec_size, unk1, unk2, offset, unk3))
   
   chunk_list = [(f.get_u32(), f.get_u32()) for i in range(chunk_count)]
   name_table = bytearray(f.read(names_len))
@@ -113,7 +113,7 @@ def l7c_ex(filename, out_dir = None):
     file_name = get_name(name_table, fn_off)
     
     out_file = os.path.join(out_dir, dir_name, file_name)
-    print out_file
+    print(out_file)
     
     f.seek(offset)
     dec = bytearray()

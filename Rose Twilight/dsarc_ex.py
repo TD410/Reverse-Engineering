@@ -32,7 +32,7 @@ def dsarc_ex(filename, out_dir):
     file_len = to_u32(data[p + 0x28 : p + 0x2C])
     file_off = to_u32(data[p + 0x2C : p + 0x30])
     
-    print filename
+    print(filename)
     
     file_data = data[file_off : file_off + file_len]
     with open(os.path.join(out_dir, filename), "wb") as f:

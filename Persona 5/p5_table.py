@@ -416,8 +416,10 @@ TRANSLATION_TABLE = {
 
 from cp932 import CP932
 
-def gen_range((enc_b1, enc_b2), (dec_b1, dec_b2), count):
+def gen_range(xxx_todo_changeme, xxx_todo_changeme1, count):
   
+  (enc_b1, enc_b2) = xxx_todo_changeme
+  (dec_b1, dec_b2) = xxx_todo_changeme1
   table = {}
   for i in range(count):
     table[(enc_b1, enc_b2)] = (dec_b1, dec_b2)
